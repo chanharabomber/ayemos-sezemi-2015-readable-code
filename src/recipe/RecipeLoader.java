@@ -25,7 +25,7 @@ public class RecipeLoader {
         if(path == null || path.equals(""))
             return null;
         else 
-            return loadLocalRecipes(path);
+            return loadRecipesFromLocalXML(path);
     }
 
     private static Set<RecipeModel> fetchRemoteRecipes(String url) {
@@ -33,7 +33,7 @@ public class RecipeLoader {
         return null;
     }
 
-    private static Set<RecipeModel> loadLocalRecipes(String path) 
+    private static Set<RecipeModel> loadRecipesFromLocalXML(String path) 
         throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory =
             DocumentBuilderFactory.newInstance();
@@ -47,9 +47,10 @@ public class RecipeLoader {
          */
         Set<RecipeModel> recipeModels = new HashSet<RecipeModel>();
         for (int i = 0; i < children.getLength(); i++) {
-            Node child = children.item(i);
-            RecipeModel recipeModel = new RecipeModel(child.getNodeValue());
-            recipeModels.add(recipeModel);
+            Node recipeNode = children.item(i);
+            // Node nameNode = ...
+            // RecipeModel recipeModel = new RecipeModel(nameNode.getNodeValue());
+            // recipeModels.add(recipeModel);
         }
 
         return recipeModels;
